@@ -122,9 +122,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAL\ConferenceRepository.cs" />
+    <Compile Include="DAL\IConferenceRepository.cs" />
+    <Compile Include="DAL\MockRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attendant.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Lecturer.cs" />
+    <Compile Include="Models\Presentation.cs" />
+    <Compile Include="Models\Publication.cs" />
+    <Compile Include="Models\Speaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
