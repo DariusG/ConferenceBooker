@@ -121,8 +121,10 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NoJScriptController.cs" />
+    <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="DAL\ConferenceRepository.cs" />
     <Compile Include="DAL\IConferenceRepository.cs" />
     <Compile Include="DAL\MockRepository.cs" />
@@ -154,6 +156,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\NoJScript\Index.cshtml" />
+    <Content Include="Views\Conference\Index.cshtml" />
+    <Content Include="Views\Speaker\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

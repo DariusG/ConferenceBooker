@@ -40,7 +40,25 @@ namespace ConferenceBooker.DAL
 
 		public IEnumerable<Speaker> GetSpeakers()
 		{
-			throw new NotImplementedException();
+			List<Speaker> speakersList = new List<Speaker>()
+			{
+				new Speaker()
+				{
+					Age = 55,
+					FirstMidName = "Bob Jim",
+					LastName = "Jones",
+					SpeakerId = 1
+				},
+				new Speaker()
+				{
+				Age = 24,
+				FirstMidName = "Becky",
+				LastName = "Smith",
+				SpeakerId = 2,
+				ImageUrl = "",
+			}
+			};
+			return speakersList;
 		}
 
 		public Speaker GetSpeakerById(int speakerId)
@@ -65,7 +83,27 @@ namespace ConferenceBooker.DAL
 
 		public IEnumerable<Presentation> GetPresentations()
 		{
-			throw new NotImplementedException();
+			List<Presentation> presentations = new List<Presentation>()
+			{
+				new Presentation()
+				{
+					Title = "Law - What is this",
+					Description = "A brief look at the origins of this subject",
+					StartTime = new DateTime(2021,11,2),
+					Duration = new TimeSpan(0,20,0),
+					PresentationId = 1,
+					Sponsor = "Law Special",
+					GuestSpeaker = new Speaker()
+					{
+						Age = 55,
+						FirstMidName = "Bob Jim",
+						LastName = "Jones",
+						SpeakerId = 1
+					}
+				}
+			};
+
+			return presentations;
 		}
 
 		public Presentation GetPresentationById(int presentationId)

@@ -4,7 +4,7 @@ using ConferenceBooker.Models;
 
 namespace ConferenceBooker.DAL
 {
-	interface IConferenceRepository : IDisposable
+	public interface IConferenceRepository : IDisposable
 	{
 		//Attendants
 		IEnumerable<Attendant> GetAttendants();
