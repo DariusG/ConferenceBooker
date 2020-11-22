@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ConferenceBooker.DAL;
+using ConferenceBooker.Models;
 
 namespace ConferenceBooker.Controllers
 {
@@ -26,6 +27,56 @@ namespace ConferenceBooker.Controllers
         {
 	        var presentations = _conferenceRepository.GetPresentations();
             return View(presentations);
+        }
+
+        public ActionResult Create()
+        {
+            var presentation = new Presentation();
+	        return View(presentation);
+        }
+
+        [HttpPost]
+        public ActionResult Create(Presentation presentation)
+        {
+	        if (ModelState.IsValid)
+	        {
+		        _conferenceRepository.InsertPresentation(presentation);
+		        return View("Index", _conferenceRepository.GetPresentations());
+	        }
+            return View(presentation);
+        }
+
+        public ActionResult Edit(int id)
+        {
+	        if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
+	        Presentation presentation = _conferenceRepository.GetPresentationById(id);
+	        return View(presentation);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Presentation presentation)
+        {
+			if (ModelState.IsValid)
+			{
+				_conferenceRepository.UpdatePresentation(presentation);
+				return View("Index",_conferenceRepository.GetPresentations()); 
+			}
+
+			return View(presentation);
+        }
+
+        public ActionResult Details(int id)
+        {
+	        if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
+	        Presentation presentation = _conferenceRepository.GetPresentationById(id);
+	        return View(presentation);
+        }
+
+        public ActionResult Delete(int id)
+        {
+	        if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
+	        _conferenceRepository.DeletePresentation(id);
+	       return View("Index", _conferenceRepository.GetPresentations());
         }
     }
 }

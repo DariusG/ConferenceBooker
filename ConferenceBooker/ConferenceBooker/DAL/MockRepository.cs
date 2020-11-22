@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ConferenceBooker.Models;
 
 namespace ConferenceBooker.DAL
@@ -7,6 +8,51 @@ namespace ConferenceBooker.DAL
 	public class MockRepository: IConferenceRepository
 	{
 		private bool _disposed;
+
+		private List<Speaker> speakersList = new List<Speaker>();
+		private List<Presentation> presentationsList = new List<Presentation>();
+
+		public MockRepository()
+		{
+			speakersList = new List<Speaker>()
+			{
+				new Speaker()
+				{
+					Age = 55,
+					FirstMidName = "Bob Jim",
+					LastName = "Jones",
+					SpeakerId = 1
+				},
+				new Speaker()
+				{
+					Age = 24,
+					FirstMidName = "Becky",
+					LastName = "Smith",
+					SpeakerId = 2,
+					ImageUrl = "",
+				}
+			};
+
+			presentationsList = new List<Presentation>()
+			{
+				new Presentation()
+				{
+					Title = "Law - What is this",
+					Description = "A brief look at the origins of this subject",
+					StartTime = new DateTime(2021,11,2),
+					Duration = new TimeSpan(0,20,0),
+					PresentationId = 1,
+					Sponsor = "Law Special",
+					GuestSpeaker = new Speaker()
+					{
+						Age = 55,
+						FirstMidName = "Bob Jim",
+						LastName = "Jones",
+						SpeakerId = 1
+					}
+				}
+			};
+		}
 
 		public IEnumerable<Attendant> GetAttendants()
 		{
@@ -40,24 +86,6 @@ namespace ConferenceBooker.DAL
 
 		public IEnumerable<Speaker> GetSpeakers()
 		{
-			List<Speaker> speakersList = new List<Speaker>()
-			{
-				new Speaker()
-				{
-					Age = 55,
-					FirstMidName = "Bob Jim",
-					LastName = "Jones",
-					SpeakerId = 1
-				},
-				new Speaker()
-				{
-				Age = 24,
-				FirstMidName = "Becky",
-				LastName = "Smith",
-				SpeakerId = 2,
-				ImageUrl = "",
-			}
-			};
 			return speakersList;
 		}
 
@@ -83,47 +111,44 @@ namespace ConferenceBooker.DAL
 
 		public IEnumerable<Presentation> GetPresentations()
 		{
-			List<Presentation> presentations = new List<Presentation>()
-			{
-				new Presentation()
-				{
-					Title = "Law - What is this",
-					Description = "A brief look at the origins of this subject",
-					StartTime = new DateTime(2021,11,2),
-					Duration = new TimeSpan(0,20,0),
-					PresentationId = 1,
-					Sponsor = "Law Special",
-					GuestSpeaker = new Speaker()
-					{
-						Age = 55,
-						FirstMidName = "Bob Jim",
-						LastName = "Jones",
-						SpeakerId = 1
-					}
-				}
-			};
-
-			return presentations;
+			return presentationsList;
 		}
 
 		public Presentation GetPresentationById(int presentationId)
 		{
-			throw new NotImplementedException();
+			return presentationsList.FirstOrDefault(i => i.PresentationId == presentationId);
 		}
 
 		public void InsertPresentation(Presentation presentation)
 		{
-			throw new NotImplementedException();
+			Presentation lastPresentation = presentationsList.LastOrDefault();
+
+			presentation.PresentationId = lastPresentation.PresentationId + 1;
+
+			presentationsList.Add(presentation);
 		}
 
 		public void DeletePresentation(int presentationId)
 		{
-			throw new NotImplementedException();
+			Presentation presentation = presentationsList.FirstOrDefault(i => i.PresentationId == presentationId);
+
+			presentationsList.Remove(presentation);
 		}
 
 		public void UpdatePresentation(Presentation presentation)
 		{
-			throw new NotImplementedException();
+			Presentation presentationToUpdate = presentationsList.FirstOrDefault(i => i.PresentationId == presentation.PresentationId);
+
+			presentationToUpdate.Description = presentation.Description;
+			presentationToUpdate.GuestSpeaker = presentation.GuestSpeaker;
+			presentationToUpdate.StartTime = presentation.StartTime;
+			presentationToUpdate.PresentationId = presentation.PresentationId;
+			presentationToUpdate.Duration = presentation.Duration;
+			presentationToUpdate.Sponsor = presentation.Sponsor;
+			presentationToUpdate.Title = presentation.Title;
+
+			presentationsList.Remove(presentationToUpdate);
+			presentationsList.Add(presentation);
 		}
 
 		public void Dispose()

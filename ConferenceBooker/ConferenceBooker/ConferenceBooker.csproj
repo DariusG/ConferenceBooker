@@ -158,6 +158,9 @@
     <Content Include="Views\NoJScript\Index.cshtml" />
     <Content Include="Views\Conference\Index.cshtml" />
     <Content Include="Views\Speaker\Index.cshtml" />
+    <Content Include="Views\Conference\Create.cshtml" />
+    <Content Include="Views\Conference\Edit.cshtml" />
+    <Content Include="Views\Conference\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
