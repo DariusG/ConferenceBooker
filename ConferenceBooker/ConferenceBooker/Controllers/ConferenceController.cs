@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,8 @@ namespace ConferenceBooker.Controllers
     public class ConferenceController : Controller
     {
         IConferenceRepository _conferenceRepository = new ConferenceRepository();
+        //EF
+        private ConferenceContext _db  = new ConferenceContext();
 
         public ConferenceController(IConferenceRepository repo)
         {
@@ -25,7 +28,8 @@ namespace ConferenceBooker.Controllers
         // GET: Conference
         public ActionResult Index()
         {
-	        var presentations = _conferenceRepository.GetPresentations();
+	        //var presentations = _conferenceRepository.GetPresentations();
+	        var presentations = _db.PresentationEntries;
             return View(presentations);
         }
 
@@ -40,17 +44,23 @@ namespace ConferenceBooker.Controllers
         {
 	        if (ModelState.IsValid)
 	        {
-		        _conferenceRepository.InsertPresentation(presentation);
-		        return View("Index", _conferenceRepository.GetPresentations());
-	        }
+		        _db.PresentationEntries.Add(presentation);
+                _db.SaveChanges();
+
+                //_conferenceRepository.InsertPresentation(presentation);
+                //return View("Index", _conferenceRepository.GetPresentations());
+                return View("Index", _db.PresentationEntries);
+            }
             return View(presentation);
         }
 
         public ActionResult Edit(int id)
         {
 	        if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
-	        Presentation presentation = _conferenceRepository.GetPresentationById(id);
-	        return View(presentation);
+	        //Presentation presentation = _conferenceRepository.GetPresentationById(id);
+	        Presentation presentation = _db.PresentationEntries.Find(id);
+
+            return View(presentation);
         }
 
         [HttpPost]
@@ -58,9 +68,11 @@ namespace ConferenceBooker.Controllers
         {
 			if (ModelState.IsValid)
 			{
-				_conferenceRepository.UpdatePresentation(presentation);
-				return View("Index",_conferenceRepository.GetPresentations()); 
-			}
+                //_conferenceRepository.UpdatePresentation(presentation);
+                _db.PresentationEntries.AddOrUpdate(presentation);
+                //return View("Index",_conferenceRepository.GetPresentations()); 
+                return View("Index", _db.PresentationEntries);
+            }
 
 			return View(presentation);
         }
@@ -68,15 +80,19 @@ namespace ConferenceBooker.Controllers
         public ActionResult Details(int id)
         {
 	        if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
-	        Presentation presentation = _conferenceRepository.GetPresentationById(id);
-	        return View(presentation);
+            //Presentation presentation = _conferenceRepository.GetPresentationById(id);
+            Presentation presentation = _db.PresentationEntries.Find(id);
+            return View(presentation);
         }
 
         public ActionResult Delete(int id)
         {
 	        if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
-	        _conferenceRepository.DeletePresentation(id);
-	       return View("Index", _conferenceRepository.GetPresentations());
+            //_conferenceRepository.DeletePresentation(id);
+            Presentation presentation = _db.PresentationEntries.Find(id);
+            if (presentation != null) _db.PresentationEntries.Remove(presentation);
+            //return View("Index", _conferenceRepository.GetPresentations());
+            return View("Index", _db.PresentationEntries);
         }
     }
 }

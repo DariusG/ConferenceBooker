@@ -7,15 +7,15 @@
     <h2>Speakers</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table .table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstMidName)
+            @Html.DisplayNameFor(model => model.Surname)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Age)
@@ -29,10 +29,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => item.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstMidName)
+            @Html.DisplayFor(modelItem => item.Surname)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Age)
@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.ImageUrl)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SpeakerId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SpeakerId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SpeakerId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.SpeakerId }, new { @class = "btn btn-primary" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.SpeakerId }, new { @class = "btn btn-primary" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.SpeakerId },new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

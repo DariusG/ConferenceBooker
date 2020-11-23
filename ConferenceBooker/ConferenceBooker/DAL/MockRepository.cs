@@ -14,20 +14,25 @@ namespace ConferenceBooker.DAL
 
 		public MockRepository()
 		{
+			LoadData();
+		}
+
+		public void LoadData()
+		{
 			speakersList = new List<Speaker>()
 			{
 				new Speaker()
 				{
 					Age = 55,
-					FirstMidName = "Bob Jim",
-					LastName = "Jones",
+					FirstName = "Bob",
+					Surname = "Jones",
 					SpeakerId = 1
 				},
 				new Speaker()
 				{
 					Age = 24,
-					FirstMidName = "Becky",
-					LastName = "Smith",
+					FirstName = "Becky",
+					Surname = "Smith",
 					SpeakerId = 2,
 					ImageUrl = "",
 				}
@@ -46,8 +51,8 @@ namespace ConferenceBooker.DAL
 					GuestSpeaker = new Speaker()
 					{
 						Age = 55,
-						FirstMidName = "Bob Jim",
-						LastName = "Jones",
+						FirstName = "Bob Jim",
+						Surname = "Jones",
 						SpeakerId = 1
 					}
 				}

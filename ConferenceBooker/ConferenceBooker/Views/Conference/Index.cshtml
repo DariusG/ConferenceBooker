@@ -7,9 +7,9 @@
     <h2>Presentations</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table .table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -47,9 +47,9 @@
             @Html.DisplayFor(modelItem => item.Sponsor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PresentationId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PresentationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PresentationId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.PresentationId }, new { @class = "btn btn-primary" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.PresentationId }, new { @class = "btn btn-primary" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.PresentationId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
